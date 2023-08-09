@@ -8,5 +8,19 @@
     "createdAt": "2023-06-28T16:05:09.952Z",
     "version": "6.3.0",
     "commit": "a942adeb868f1fe54b86e34cc4fc4ddb0601700d"
+  },
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "jest --coverage"
+  },
+  "bin": {
+    "say-hello": "./cli.js"
+  },
+  "devDependencies": {
+    "jest": "^29.6.1"
+  },
+  "dependencies": {
+    "marked": "^6.0.0",
+    "picocolors": "^1.0.0"
   }
 }
