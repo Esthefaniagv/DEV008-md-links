@@ -1,7 +1,10 @@
 const pc = require('picocolors');
 const aux = require('./aux')
 
-const path = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/README.md';
+const path = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md';
+const option = {
+    validate: true
+};
 // const mdlinks = (path, options) => {
 //     return new Promise((resolve, reject) => {
 
@@ -10,29 +13,33 @@ const path = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/README.md';
 // };
 const stats = aux.pathStat(path)
 
-if (aux.existsPath && stats.isFile()) {
-    const currentPath = aux.isAbsolute(path) ? path : aux.convertToAbsolute(path);
-    const isMd = aux.isMarkdown(currentPath)
-    if (isMd === '.md') {
-        const readingCurrentFile = aux.readingFile(currentPath);
-        // console.log(pc.bgCyan(readingCurrentFile))
-        const regex = /\[+[a-zA-Z0-9.-].+\]+\([a-zA-Z0-9.-].+\)/gm;
-        const arrayLinks = readingCurrentFile.match(regex);
-        console.log(arrayLinks);
-        
-        // const arrayOfFile = readingCurrentFile.split(' ');
-        // arrayOfFile.forEach((link) => {
-        //     const array = [];
-            
+if (aux.pathExist && stats.isFile()) {
+    // console.log('aca')
+    const absolute = aux.isAbsolute(path)
+    // console.log(absolute)
+    if (absolute) {
+        const md = aux.isMarkdown(path);
+        if (md) {
+            // console.log('ms')
+            let array = aux.readingFile(path);
+            if (option && option.validate == true) {
+                //console.log('aca estoy', array)
+                try {
+                    const validate = aux.validateLink(array);
+                    if(validate){
+                        let resuelto = aux.resolvePromise(validate);
+                        console.log(resuelto)
+                    }
+                    // console.log(resuelto)
+                    // console.log('hola', validate)
+                } catch {
+                    console.log('error')
+                }
 
-        //     // const found = readingCurrentFile.match(regex)
-        //     if (link.match(regex)) {
-        //         array.push(link)
-        //     }
-        // })
-
-        // let arrayLinks = []
-
+            } else {
+                // console.log('else')
+            }
+        }
     }
 }
 // mdlinks('prueba.md', true)
@@ -44,5 +51,5 @@ if (aux.existsPath && stats.isFile()) {
 // })
 
 
-
 // module.exports = { mdlinks }
+
