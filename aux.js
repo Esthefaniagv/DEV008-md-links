@@ -82,17 +82,16 @@ const resolvePromise = (arrayOfPromises) => {
   arrayOfPromises.forEach((promise) => {
     newPromiseArray.push(promise.status)
   })
-  Promise.all(newPromiseArray)
+  return Promise.all(newPromiseArray)
     .then((r) => {
       for (let i = 0; i < arrayOfPromises.length; i++) {
         const statusPromise = arrayOfPromises[i].status = r[i].status
         const statusTxt = arrayOfPromises[i].stsText = r[i].statusText
         // console.log(statusTxt, statusPromise) 
       }
-      console.log('SOY RESOLVE', resolvePromise)
-      // return resolvePromise;
+      // console.log('SOY RESOLVE', resolvePromise)
+      return resolvePromise;
     })
-    
     .catch((e) => {
       console.error(pc.bgRed('se ha encontrado un error: ' + e))
     })

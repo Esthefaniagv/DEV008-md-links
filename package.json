@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "esthefaniagv-md-links",
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
@@ -14,7 +14,7 @@
     "test": "jest --coverage"
   },
   "bin": {
-    "say-hello": "./cli.js"
+    "say-hello": "bin/cli.js"
   },
   "devDependencies": {
     "jest": "^29.6.1"

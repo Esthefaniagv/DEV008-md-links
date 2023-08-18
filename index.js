@@ -11,6 +11,7 @@ const option = {
 //     })
 //     console.log(pc.blue('hola soy mdlink'));
 // };
+
 const stats = aux.pathStat(path)
 
 if (aux.pathExist && stats.isFile()) {
@@ -20,29 +21,24 @@ if (aux.pathExist && stats.isFile()) {
         if (md) {
             let array = aux.readingFile(path);
             if (option && option.validate == true) {
-                try {
-                    const validate = aux.validateLink(array);
-                    if (validate) {
-                        console.log(typeof aux.resolvePromise(validate))
-                        console.log('HOLAAA' , aux.resolvePromise(validate))
+                const validate = aux.validateLink(array);
+                if (validate) {
+                    try {
+                        const resolve = aux.resolvePromise(validate)
+                            .then((r) => {
+                                console.log("SOY LA RESPUESTA", r)
+                            })
+                        // console.log(typeof resolve)
+                        // console.log('HOLAAA', resolve)
+                    } catch (error) {
+                        throw new Error('ERROR DE EJECUCION DE RESOLVE')
                     }
-                } catch {
-                    console.log('error')
+
+                } else {
+                    console.log('else')
                 }
-            } else {
-                console.log('else')
             }
         }
     }
 }
-// mdlinks('prueba.md', true)
-// .then((response) =>{
-//     console.log(response)
-// })
-// .catch((err) =>{
-//     console.log('me petaquie ' + err)
-// })
-
-
 // module.exports = { mdlinks }
-
