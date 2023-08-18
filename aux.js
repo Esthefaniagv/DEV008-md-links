@@ -55,7 +55,7 @@ const readingFile = (inputPath) => {
     for (let i = 0; i < result.length; i++) {
       let text = singleMatch.exec(result[i])
       // console.log(result[i])
-      links.push({ text: `${text[1]}`, href: `${text[2]}` })
+      links.push({ text: `${text[1]}`, href: `${text[2]}`, file: inputPath })
       // console.log(links)
     }
   } else {
@@ -63,6 +63,7 @@ const readingFile = (inputPath) => {
   }
   return links
 };
+
 
 // validar links con request http 
 const validateLink = (links) => {
@@ -77,18 +78,21 @@ const validateLink = (links) => {
 
 const resolvePromise = (arrayOfPromises) => {
   let newPromiseArray = []
-  let objeto = [...links]
+  let resolvePromise = [...arrayOfPromises]
   arrayOfPromises.forEach((promise) => {
     newPromiseArray.push(promise.status)
   })
-  Promise.all(newPromiseArray).then((r) => {
-    for (let i = 0; i < arrayOfPromises.length; i++) {
-      const statusPromise = arrayOfPromises[i].status = r[i].status
-      const statusTxt = arrayOfPromises[i].stsText = r[i].statusText
-      // console.log(statusTxt)
-    }
-    console.log(arrayOfPromises)
-  })
+  Promise.all(newPromiseArray)
+    .then((r) => {
+      for (let i = 0; i < arrayOfPromises.length; i++) {
+        const statusPromise = arrayOfPromises[i].status = r[i].status
+        const statusTxt = arrayOfPromises[i].stsText = r[i].statusText
+        // console.log(statusTxt, statusPromise) 
+      }
+      console.log('SOY RESOLVE', resolvePromise)
+      // return resolvePromise;
+    })
+    
     .catch((e) => {
       console.error(pc.bgRed('se ha encontrado un error: ' + e))
     })

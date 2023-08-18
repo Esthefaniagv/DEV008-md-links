@@ -14,30 +14,23 @@ const option = {
 const stats = aux.pathStat(path)
 
 if (aux.pathExist && stats.isFile()) {
-    // console.log('aca')
     const absolute = aux.isAbsolute(path)
-    // console.log(absolute)
     if (absolute) {
         const md = aux.isMarkdown(path);
         if (md) {
-            // console.log('ms')
             let array = aux.readingFile(path);
             if (option && option.validate == true) {
-                //console.log('aca estoy', array)
                 try {
                     const validate = aux.validateLink(array);
-                    if(validate){
-                        let resuelto = aux.resolvePromise(validate);
-                        console.log(resuelto)
+                    if (validate) {
+                        console.log(typeof aux.resolvePromise(validate))
+                        console.log('HOLAAA' , aux.resolvePromise(validate))
                     }
-                    // console.log(resuelto)
-                    // console.log('hola', validate)
                 } catch {
                     console.log('error')
                 }
-
             } else {
-                // console.log('else')
+                console.log('else')
             }
         }
     }
