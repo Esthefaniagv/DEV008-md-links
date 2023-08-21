@@ -35,20 +35,33 @@ const isMarkdown = (inputPath) => {
   let mdfile = path.extname(inputPath) === '.md' ? true : false;
   return mdfile
 }
+
 // 6. leer un directorio con archivos 
 
-const knowDocs = (inputPath) => {
+const knowDocs = (inputPath, filesInDir) => {
+  // console.trace([inputPath]);
+  if (pathStat(inputPath).isFile()) {
+    if (isMarkdown(inputPath)) {
+      filesInDir.push(inputPath)
+    }
+    return 
+  }
   let filenames = fs.readdirSync(inputPath);
-  return filenames
+  filenames.forEach((file) => {
+    knowDocs(inputPath + '/' + file, filesInDir)
+  })
+  return filesInDir
 }
+
+// console.log(knowDocs('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir', []))
+
+
+
 let links = []
 // 5.mostrar un documento en consola
 const readingFile = (inputPath) => {
   const file = fs.readFileSync(inputPath, 'utf-8');
   const regex = /\[([^\[]+)\](\(.*\))/gm
-
-  // const regex = /^\[([\w\s\d]+)\]\((https?:\/\/[\w\d./?=#]+)\)$/
-  // const regex = /\[+[a-zA-Z0-9.-].+\]+\([a-zA-Z0-9.-].+\)/gm;
   const result = file.match(regex);
   if (result) {
     const singleMatch = /\[([^\[]+)\]\((.*)\)/
@@ -63,6 +76,16 @@ const readingFile = (inputPath) => {
   }
   return links
 };
+
+// const inputpath = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/'
+// //leer cada archivo de la lista md de un directorio 
+// const readDirFiles = (arrayFilesOfDir) => {
+//   arrayFilesOfDir.forEach((file) => {
+//     const eachFile = inputpath.concat(file)
+//     console.log(eachFile)
+//   })
+
+// }
 
 
 // validar links con request http 
@@ -96,6 +119,13 @@ const resolvePromise = (arrayOfPromises) => {
       console.error(pc.bgRed('se ha encontrado un error: ' + e))
     })
 }
+
+// const totalStats = (totalLinks) => {
+//   const totalLinks = [...links]
+//   totalLinks.forEach((href) => {
+//     total.total
+//   })
+// }
 
 module.exports = {
   pathExist,
