@@ -44,7 +44,7 @@ const knowDocs = (inputPath, filesInDir) => {
     if (isMarkdown(inputPath)) {
       filesInDir.push(inputPath)
     }
-    return 
+    return
   }
   let filenames = fs.readdirSync(inputPath);
   filenames.forEach((file) => {
@@ -76,24 +76,13 @@ const readingFile = (inputPath) => {
   }
   return links
 };
-
-// const inputpath = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/'
-// //leer cada archivo de la lista md de un directorio 
-// const readDirFiles = (arrayFilesOfDir) => {
-//   arrayFilesOfDir.forEach((file) => {
-//     const eachFile = inputpath.concat(file)
-//     console.log(eachFile)
-//   })
-
-// }
-
+readingFile('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md')
 
 // validar links con request http 
 const validateLink = (links) => {
   const resultValidate = [...links]
   resultValidate.forEach((link) => {
     link.status = axios.get(link.href)
-    // link.stsText = axios.get(link.href)
   }
   );
   return resultValidate
@@ -120,12 +109,35 @@ const resolvePromise = (arrayOfPromises) => {
     })
 }
 
-// const totalStats = (totalLinks) => {
-//   const totalLinks = [...links]
-//   totalLinks.forEach((href) => {
-//     total.total
-//   })
-// }
+//acceder a los stats de los links despues de agregar todas sus propiedades 
+const getStat = (links) => {
+  // const arrayStat = []
+  // resolvePromise()
+  // .then((r) => {
+  //   r.forEach((link) => {
+  //     arrayStat.push(link.href)
+  //   })
+  //   if (arrayStat != []) {
+  //       let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
+  //       let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
+  //       console.log(total, unique)
+  //     }
+  //     return arrayStat
+  // })
+  const arrayStat = []
+  const result = [...links]
+  result.forEach((link) => {
+    arrayStat.push(link.href)
+  })
+  if (arrayStat) {
+    let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
+    let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
+    console.log(total, unique)
+  }
+  return arrayStat
+}
+getStat(links)
+
 
 module.exports = {
   pathExist,
@@ -136,7 +148,8 @@ module.exports = {
   knowDocs,
   readingFile,
   validateLink,
-  resolvePromise
+  resolvePromise,
+  getStat
 }
 
 // 3. convertir a absoluta 

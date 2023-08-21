@@ -27,7 +27,7 @@ const mdlinks = (path, option) => {
                                 } catch (error) {
                                     throw new Error('Cannot access path provided')
                                 }
-                            }
+                            } 
                             else {
                                 reject(new error('Error un process please try again'))
                             }
@@ -62,9 +62,9 @@ const mdlinks = (path, option) => {
         ;
 };
 
-mdlinks('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir')
-    .then((links) => console.log(links))
-    .catch((error) => console.error(error))
+// mdlinks('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir')
+//     .then((links) => console.log(links))
+//     .catch((error) => console.error(error))
 
 //PRUEBA DE ACCEDER A TODAS LAS VALIDACIONES, DAR RESPUESTA CON ARCHIVO MD. 
 
