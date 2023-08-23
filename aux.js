@@ -76,7 +76,7 @@ const readingFile = (inputPath) => {
   }
   return links
 };
-readingFile('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md')
+// readingFile('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md')
 
 // validar links con request http 
 const validateLink = (links) => {
@@ -110,33 +110,33 @@ const resolvePromise = (arrayOfPromises) => {
 }
 
 //acceder a los stats de los links despues de agregar todas sus propiedades 
-const getStat = (links) => {
-  // const arrayStat = []
-  // resolvePromise()
-  // .then((r) => {
-  //   r.forEach((link) => {
-  //     arrayStat.push(link.href)
-  //   })
-  //   if (arrayStat != []) {
-  //       let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
-  //       let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
-  //       console.log(total, unique)
-  //     }
-  //     return arrayStat
-  // })
-  const arrayStat = []
-  const result = [...links]
-  result.forEach((link) => {
-    arrayStat.push(link.href)
-  })
-  if (arrayStat) {
-    let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
-    let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
-    console.log(total, unique)
-  }
-  return arrayStat
-}
-getStat(links)
+// const getStat = (links) => {
+//   // const arrayStat = []
+//   // resolvePromise()
+//   // .then((r) => {
+//   //   r.forEach((link) => {
+//   //     arrayStat.push(link.href)
+//   //   })
+//   //   if (arrayStat != []) {
+//   //       let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
+//   //       let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
+//   //       console.log(total, unique)
+//   //     }
+//   //     return arrayStat
+//   // })
+//   const arrayStat = []
+//   const result = [...links]
+//   result.forEach((link) => {
+//     arrayStat.push(link.href)
+//   })
+//   if (arrayStat) {
+//     let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
+//     let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
+//     console.log(total, unique)
+//   }
+//   return arrayStat
+// }
+// getStat(links)
 
 
 module.exports = {
@@ -149,7 +149,7 @@ module.exports = {
   readingFile,
   validateLink,
   resolvePromise,
-  getStat
+  // getStat
 }
 
 // 3. convertir a absoluta 
