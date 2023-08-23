@@ -5,13 +5,12 @@ const axios = require('axios')
 const { resolve } = require('node:dns');
 const { isatty } = require('node:tty');
 
-// const inputPath = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md';
 
 //1.conocer si la ruta ingresada es valida 
 const pathExist = (inputPath) => {
   const exist = fs.existsSync(inputPath)
   if (exist) {
-    console.log('true')
+    return true
   } else {
     console.error(pc.bgRed("Following path does not exist on Fyle Sistem :" + inputPath))
   }
@@ -21,6 +20,7 @@ const pathExist = (inputPath) => {
 
 const pathStat = (inputPath) => { return fs.statSync(inputPath) }
 
+// console.log(pathStat('prueba.md'))
 
 // 4. conocer si la ruta es absoluta y resolver 
 
@@ -53,10 +53,6 @@ const knowDocs = (inputPath, filesInDir) => {
   return filesInDir
 }
 
-// console.log(knowDocs('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir', []))
-
-
-
 let links = []
 // 5.mostrar un documento en consola
 const readingFile = (inputPath) => {
@@ -67,16 +63,13 @@ const readingFile = (inputPath) => {
     const singleMatch = /\[([^\[]+)\]\((.*)\)/
     for (let i = 0; i < result.length; i++) {
       let text = singleMatch.exec(result[i])
-      // console.log(result[i])
       links.push({ text: `${text[1]}`, href: `${text[2]}`, file: inputPath })
-      // console.log(links)
     }
   } else {
     console.error(pc.bgRed('No links found please try again with a diferent route'))
   }
   return links
 };
-// readingFile('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md')
 
 // validar links con request http 
 const validateLink = (links) => {
@@ -87,6 +80,7 @@ const validateLink = (links) => {
   );
   return resultValidate
 }
+
 
 const resolvePromise = (arrayOfPromises) => {
   let newPromiseArray = []
@@ -99,9 +93,8 @@ const resolvePromise = (arrayOfPromises) => {
       for (let i = 0; i < arrayOfPromises.length; i++) {
         const statusPromise = arrayOfPromises[i].status = r[i].status
         const statusTxt = arrayOfPromises[i].stsText = r[i].statusText
-        // console.log(statusTxt, statusPromise) 
       }
-      // console.log('SOY RESOLVE', resolvePromise)
+      console.log(resolvePromise)
       return resolvePromise;
     })
     .catch((e) => {
@@ -149,12 +142,6 @@ module.exports = {
   readingFile,
   validateLink,
   resolvePromise,
-  // getStat
+
 }
 
-// 3. convertir a absoluta 
-
-// const convertToAbsolute = (inputPath) => {
-//   let convert = path.resolve(inputPath);
-//   return convert;
-// }

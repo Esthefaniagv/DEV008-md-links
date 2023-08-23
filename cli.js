@@ -59,55 +59,6 @@ if (path_file) {
             })
             .catch((error) => console.error(error));
     }
-
-    // mdlinks(path_file, { validate: true })
-    // .then((r) => {
-    //     r.forEach((link) => {
-    //         console.log(pc.blue(link.href) + '  ' + pc.magenta(link.text) + '  ' + pc.white(link.file)+ '  ' + pc.yellow(link.status)+ '  ' + pc.bgGreen(link.stsText))
-    //     })
-    // })
-
-    // } else if (stats) {
-    //     mdlinks(path_file, { stats: true })
-    //         .then((links) => {
-    //             let total = []
-    //             links.forEach((p) => {
-    //                 total.push(p.href)
-    //             })
-    //             let unique = new Set(total)
-    //             console.log(pc.underline('Get to know your links stats :'))
-    //             console.log(pc.bgBlue('Total:'), total.length)
-    //             console.log(pc.bgBlue('Unique:'), unique.size)
-    //         })
-    //         .catch((error) => console.error(error));
-    // }
-    // if (!!stats && validate) {
-    //     console.log('stats true')
-    // mdlinks(path_file,{ validate: true })
-    //     .then((links) => {
-    //         let total = []
-    //         let broken = []
-    //         links.forEach((p) => {
-    //             total.push(p.href)
-    //             if (p.status >= 400) {
-    //                 broken.push(p.status);
-    //             }
-    //             console.log(broken.length)
-    //         })
-    //         let unique = new Set(total)
-    //         console.log(pc.underline('Get to know your links stats :'))
-    //         console.log(pc.bgBlue('Total:'), total.length)
-    //         console.log(pc.bgBlue('Unique:'), unique.size)
-    //         console.log(pc.bgBlue('Broken:'), broken.size)
-    //     })
-    //     .catch((error) => console.error(error));
 } else {
     console.error('Please introduce a correct format', pc.bgRed('EXAMPLE : $ md-links ./some/example.md'))
 }
-
-// if(stats){
-                    //     let unique = new Set(arrayStat).size
-                    //     console.log('Total: ', total.length)
-                    //     console.log(unique)
-                    //     console.log(broken.length)
-                    // }
