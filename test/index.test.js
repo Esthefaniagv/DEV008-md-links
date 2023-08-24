@@ -1,15 +1,20 @@
+const bar = require('./const')
+const axios = require('axios')
 const aux = require('../aux.js');
 const mdlinks = require('../index.js');
 
+jest.mock('axios')
 
-const path = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md';
-const relative = 'prueba.md'
+// beforeEach(() => {
+//   axios.get.mockClear()
+// })
+
 
 describe('my file system functions', () => {
 
   it('should check if path exists', () => {
 
-    expect(aux.pathExist(path)).toBeTruthy()
+    expect(aux.pathExist(bar.path)).toBeTruthy()
   });
 
   // it('should return path stats', () => {
@@ -25,17 +30,17 @@ describe('my file system functions', () => {
 
   it('should check if path is absolute', () => {
 
-    expect(aux.isAbsolute(path)).toBeTruthy()
+    expect(aux.isAbsolute(bar.path)).toBeTruthy()
   });
 
   it('should convert relative path to absolute', () => {
 
-    expect(aux.isAbsolute(relative)).toBeTruthy()
+    expect(aux.isAbsolute(bar.relative)).toBeTruthy()
   });
 
   it('should verify that a path is markdown', () => {
 
-    expect(aux.isMarkdown(path)).toBeTruthy()
+    expect(aux.isMarkdown(bar.path)).toBeTruthy()
   });
 
   //test de KNOWDOCS (Recursiva)
@@ -53,27 +58,48 @@ describe('my file system functions', () => {
   // });
 
   it('should return links in a file', () => {
-    const expected = [{
-      text: 'como funcionan las promesas',
-      href: 'https://platzi.com/blog/que-es-y-como-funcionan-las-promesas-en-javascript/',
-      file: '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md'
-    },
-    {
-      text: 'View the analytics docs',
-      href: 'https://getanalytics.io/',
-      file: '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md'
-    }]
-    expect(aux.readingFile(path)).toEqual(expect.arrayContaining(expected))
+    
+    expect(aux.readingFile(bar.path)).toEqual(expect.arrayContaining(bar.expected))
   });
 
-  // test de validatelink... solo agrega axios
-  //test de resolve promise... 
 });
 
-describe('mdlinks', () => {
+//TEST DE FUNCION QUE LLAMA A AXIOS
+describe('validateLink', () => {
 
-  it('should have been called with the correct path', () => {
-
-    expect(aux.isMarkdown(path)).toBeTruthy()
+  it('should call axios', () => {
+    aux.validateLink(expected)
+    expect(axios).toHaveBeenCalled()
   });
+
+  // test('success GET scenario', async () => {
+
+  //   // asignamos comportamiento deseado para este test
+  //   axios.get.mockResolvedValueOnce(Promise.resolve(expectedAxios))
+  
+  //   const response = await aux.validateLink(expected)
+  
+  //   // toEqual es mejor para comparar estructuras como objetos
+  //   expect(response).toEqual(expectedAxios)
+  // })
+
+});
+
+describe('resolvePromise', () => {
+
+  it('should call axios', async () => {
+    const data = [{
+      text: 'Mensajes HTTP - MDN',
+    href: 'https://developer.mozilla.org/es/docs/Web/HTTP/Messages',
+    file: '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md',
+    status: Promise 
+    }]
+
+    axios.get.mockResolvedValueOnce( () => Promise.resolve(data))
+    const response = await aux.resolvePromise(expected)
+    console.log(response)
+    expect(response).toEqual(data)
+  });
+
+
 });
