@@ -18,11 +18,12 @@
     "clear_jest": "jest --clearCache"
   },
   "bin": {
-    "md-links": "./cli.js"
+    "eg-md-links": "./cli.js"
   },
   "files": [
-    "index.js",
-    "cli.js"
+    "./index",
+    "cli.js",
+    "aux.js"
   ],
   "keywords": [
     "cli-app",

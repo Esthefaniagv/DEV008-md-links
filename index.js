@@ -82,4 +82,4 @@ const mdlinks = (path, option) => {
     // .then((links) => console.log(links))
     // .catch((error) => console.error(error))
 
-module.exports = mdlinks
+exports = module.exports = mdlinks
