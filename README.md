@@ -1,5 +1,7 @@
 # Markdown Links
 
+![mdlinkLogoBlue](/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/markdown.png)
+
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
@@ -7,9 +9,6 @@
 * [3. Cómo usarlo](#3-cómo-usarlo)
 
 ***
-
-![mdlinkLogo](https://www.google.com/
-https://miro.medium.com/v2/resize:fit:1400/1*eZ7YPTqzcyFVoQxIOIQ9kQ.png)
 
 ## 1. Preámbulo
 
@@ -60,7 +59,7 @@ mdLinks("./some/dir")
 
 #### A través de CLI
 
-`eg-md-links <path-to-file> [options]`
+`eg-md-links <ruta-al-archivo> [options]`
 
 Por ejemplo:
 
