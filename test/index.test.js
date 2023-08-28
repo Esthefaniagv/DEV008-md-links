@@ -1,9 +1,14 @@
 const bar = require('./const')
 const axios = require('axios')
 const aux = require('../aux.js');
+const pc = require('picocolors')
 const mdlinks = require('../index.js');
 
 jest.mock('axios')
+
+// jest.mock('axios' , () => {
+//   get: jest.fn( () => Promise.resolve({}))
+// })
 
 // beforeEach(() => {
 //   axios.get.mockClear()
@@ -16,8 +21,6 @@ describe('my file system functions', () => {
 
     expect(aux.pathExist(bar.path)).toBeTruthy()
   });
-
-  // it('should return path stats', () => {
   //   const object = {
   //     'dev': expect.any(Number),
   //     'mode': expect.any(Number),
@@ -44,22 +47,22 @@ describe('my file system functions', () => {
   });
 
   //test de KNOWDOCS (Recursiva)
-  // it('should red all files in a directory', () => {
-  //   const dir = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir'
-  //   const files = [
-  //     '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaDos.md', '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebajs.js',
-  //     '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaUno.md'
-  //   ]
-  //   const expectedMd = ['/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaDos.md', '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaUno.md'];
-  //   // expect(aux.knowDocs(path, [])).toBe(files)
-  //   expect(dir).toEqual(files)
-  //   expect(dir).toEqual(expect.arrayContaining(expectedMd))
+  it('should red all files in a directory', () => {
+    const dir = '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir'
+    // const files = [
+    //   '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaDos.md', '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebajs.js',
+    //   '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaUno.md'
+    // ]
+    const expectedMd = ['/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaDos.md', '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/dir/pruebaUno.md'];
+    const result = aux.knowDocs(dir,[])
+
+    expect(result).toStrictEqual(expectedMd)
     
-  // });
+  });
 
   it('should return links in a file', () => {
     
-    expect(aux.readingFile(bar.path)).toEqual(expect.arrayContaining(bar.expected))
+    expect(aux.readingFile(bar.path)).toEqual(expect.arrayContaining(bar.array))
   });
 
 });
@@ -67,37 +70,54 @@ describe('my file system functions', () => {
 //TEST DE FUNCION QUE LLAMA A AXIOS
 describe('validateLink', () => {
 
+
+  it('should be a function', () => {
+    expect(typeof aux.validateLink).toBe('function')
+  });
   it('should call axios', () => {
-    aux.validateLink(expected)
-    expect(axios).toHaveBeenCalled()
+    aux.validateLink(bar.array)
+    // expect(aux.validateLink()).toHaveBeenCalled()
+    
+    //expect(aux.validateLink).toHaveBeenCalledWith(bar.array)
+
+    expect(axios.get).toHaveBeenCalled()
+    
   });
 
-  // test('success GET scenario', async () => {
+  it('should return an iterable object', () => {
+    axios.get.mockImplementation( () => new Promise(() => {}))
+    const response = aux.validateLink(bar.links)
 
-  //   // asignamos comportamiento deseado para este test
-  //   axios.get.mockResolvedValueOnce(Promise.resolve(expectedAxios))
-  
-  //   const response = await aux.validateLink(expected)
-  
-  //   // toEqual es mejor para comparar estructuras como objetos
-  //   expect(response).toEqual(expectedAxios)
-  // })
-
-});
+    console.log(response) //status es undefined
+    expect(response).toEqual(bar.validate)
+    axios.get.mockReset()
+  })
+  })
 
 describe('resolvePromise', () => {
 
-  it('should call axios', async () => {
+  it('should resolve axios promise', async () => {
     const data = [{
       text: 'Mensajes HTTP - MDN',
     href: 'https://developer.mozilla.org/es/docs/Web/HTTP/Messages',
     file: '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md',
-    status: Promise 
+    status: 200,
+    stsText: 'OK'
     }]
 
-    axios.get.mockResolvedValueOnce( () => Promise.resolve(data))
-    const response = await aux.resolvePromise(expected)
-    console.log(response)
+    const resolved = [{
+      text: 'Mensajes HTTP - MDN',
+    href: 'https://developer.mozilla.org/es/docs/Web/HTTP/Messages',
+    file: '/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md',
+    status: new Promise((resolve, reject) => {
+      resolve({
+        status: 200,
+        statusText: 'OK'
+      })
+    })
+    }]
+
+    const response = await aux.resolvePromise(resolved)
     expect(response).toEqual(data)
   });
 

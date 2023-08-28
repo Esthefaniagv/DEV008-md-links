@@ -10,9 +10,9 @@ const { isatty } = require('node:tty');
 const pathExist = (inputPath) => {
   const exist = fs.existsSync(inputPath)
   if (exist) {
-    return true
+    return exist
   } else {
-    console.error(pc.bgRed("Following path does not exist on Fyle Sistem :" + inputPath))
+    console.log(pc.bgRed("Following path does not exist on Fyle Sistem :" + inputPath))
   }
 }
 
@@ -94,7 +94,6 @@ const resolvePromise = (arrayOfPromises) => {
         const statusPromise = arrayOfPromises[i].status = r[i].status
         const statusTxt = arrayOfPromises[i].stsText = r[i].statusText
       }
-      console.log(resolvePromise)
       return resolvePromise;
     })
     .catch((e) => {
@@ -102,42 +101,11 @@ const resolvePromise = (arrayOfPromises) => {
     })
 }
 
-//acceder a los stats de los links despues de agregar todas sus propiedades 
-// const getStat = (links) => {
-//   // const arrayStat = []
-//   // resolvePromise()
-//   // .then((r) => {
-//   //   r.forEach((link) => {
-//   //     arrayStat.push(link.href)
-//   //   })
-//   //   if (arrayStat != []) {
-//   //       let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
-//   //       let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
-//   //       console.log(total, unique)
-//   //     }
-//   //     return arrayStat
-//   // })
-//   const arrayStat = []
-//   const result = [...links]
-//   result.forEach((link) => {
-//     arrayStat.push(link.href)
-//   })
-//   if (arrayStat) {
-//     let total = 'Total: ' + pc.bgMagenta(arrayStat.length)
-//     let unique = 'Unique: ' + pc.bgMagenta(new Set(arrayStat).size)
-//     console.log(total, unique)
-//   }
-//   return arrayStat
-// }
-// getStat(links)
-
-
 module.exports = {
   pathExist,
   pathStat,
   isMarkdown,
   isAbsolute,
-  // convertToAbsolute,
   knowDocs,
   readingFile,
   validateLink,

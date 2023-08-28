@@ -78,7 +78,7 @@ const mdlinks = (path, option) => {
         ;
 };
 
-//mdlinks('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md', {validate:true})
+// mdlinks('/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/prueba.md', {validate:true})
     // .then((links) => console.log(links))
     // .catch((error) => console.error(error))
 
