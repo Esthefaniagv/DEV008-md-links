@@ -1,6 +1,6 @@
 # Markdown Links
 
-![mdlinkLogoBlue](/Users/esthefaniagv/Desktop/mdlink/DEV008-md-links/markdown.png)
+![mdlinkLogoBlue](markdown.png)
 
 ## Índice
 
